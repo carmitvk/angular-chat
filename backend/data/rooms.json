@@ -1,0 +1,30 @@
+[
+  {
+    "roomId": "123",
+    "roomName": "friends"
+  },
+  {
+    "roomId": "124",
+    "roomName": "work"
+  },
+  {
+    "roomId": "125",
+    "roomName": "family"
+  },
+  {
+    "roomId": "126",
+    "roomName": "neigbourhood"
+  },
+  {
+    "roomId": "127",
+    "roomName": "petah-tikva"
+  },
+  {
+    "roomId": "128",
+    "roomName": "jym"
+  },
+  {
+    "roomId": "129",
+    "roomName": "paint-group"
+  }
+]

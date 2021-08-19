@@ -1,0 +1,68 @@
+<div class="login-page">
+
+  <div class="auth-wrapper">
+    <div class="title">CHAT APPLICATION</div>
+    <form [formGroup]="addModelForm" class="form-container">
+      <div class="login">
+        <ng-container *ngIf="authService.isLoading$ | async">
+          <div class="data-loading">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-container>
+        <div class="form-containers">
+          <p *ngIf="isSignUpMode">
+            <mat-form-field appearance="outline" [style.width.px]=280>
+              <mat-label>Enter your nick name</mat-label>
+              <input matInput placeholder="firstName + lastName" formControlName="nickName" required>
+              <mat-error *ngIf="addModelForm.controls.nickName?.invalid">
+                <ng-container *ngIf="addModelForm.controls.nickName.errors?.maxlength || addModelForm.controls.nickName.errors?.minlength">The length must be 2 characters or longer
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.nickName.errors?.required">Nick name is required</ng-container>
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" [style.width.px]=280>
+              <mat-label>Enter your email</mat-label>
+              <input matInput placeholder="firstName.lastName@gmail.com" formControlName="userName" required>
+              <mat-error *ngIf="addModelForm.controls.userName?.invalid">
+                <ng-container *ngIf="addModelForm.controls.userName.errors?.nameUnique">Email should be unique
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.userName.errors?.userName">Email is not valid
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.userName.errors?.notExist">Couldn't find your account
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.userName.errors?.alreadyExist">Email already in use.
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.userName.errors?.required">Email is required</ng-container>
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="outline" [style.width.px]=280>
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" class="input-class">
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="addModelForm.controls.password?.invalid">
+                <ng-container *ngIf="addModelForm.controls.password.errors?.maxlength || addModelForm.controls.password.errors?.minlength">The length must be 2 characters or longer
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.password.errors?.wrongPassword">Wrong password. Try again.
+                </ng-container>
+                <ng-container *ngIf="addModelForm.controls.password.errors?.required">Email name is required</ng-container>
+              </mat-error>
+            </mat-form-field>
+          </p>
+        </div>
+        <button mat-flat-button class="login-button" (click)="submit()" [disabled]="authService.isLoading$ | async">
+          {{isSignUpMode ? 'Sign Up' : 'Log In'}}
+        </button>
+        <div class="line" *ngIf="!isSignUpMode"></div>
+        <button mat-flat-button class="signin-button" (click)="setSignUpMode()"
+             *ngIf="!isSignUpMode" [disabled]="authService.isLoading$ | async">Create New Account</button>
+      </div>
+    </form>
+  </div>
+  <div class="image-container"></div>
+</div>

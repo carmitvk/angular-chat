@@ -1,0 +1,10 @@
+<div class="typing-container" cdkTrapFocus >
+  <mat-form-field appearance="outline">
+    <input matInput type="text" autocomplete="off" [(ngModel)]="messageText" 
+          (keyup.enter)="!!messageText ? sendChatMessage() : null">
+    <button [disabled]="!messageText" matSuffix mat-icon-button aria-label="Clear" 
+        (click)="sendChatMessage()">
+      <mat-icon [ngClass]="{'disabled': !messageText}" class="send-text">play_circle_filled</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

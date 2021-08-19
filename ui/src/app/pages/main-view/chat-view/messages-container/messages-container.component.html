@@ -1,0 +1,23 @@
+<div class="messages-container" *ngIf="!(roomDateService.isLoading$ | async)">
+  <ng-container *ngIf="chatMessagesDataService.data$ | async; let chatMessages">
+    <ng-container *ngIf="chatMessages.length; else dataEmpty">
+      <ng-container *ngFor="let item of chatMessages; trackBy: identify; index as i; ">
+        <div class="divider-container"
+          *ngIf="i === 0 || (item.receivedTimestamp | date: 'dd') !== (chatMessages[i-1].receivedTimestamp | date: 'dd')">
+          <div class="date">{{item.receivedTimestamp | date: 'dd/MM/yyyy'}}</div>
+        </div>
+        <message-view [data]="item"></message-view>
+      </ng-container>
+    </ng-container>
+    <ng-template #dataEmpty>
+      <div class="data-empty">
+        There are no messages yet
+      </div>
+    </ng-template>
+  </ng-container>
+</div>
+<ng-container *ngIf="roomDateService.isLoading$ | async">
+  <div class="data-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>

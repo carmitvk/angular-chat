@@ -1,0 +1,11 @@
+[
+  {
+    "context": [
+      "/auth",
+      "/api"
+    ],
+    "target": "http://localhost:3030/",
+    "secure": false,
+    "logLevel": "debug"
+  }
+]

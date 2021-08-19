@@ -1,0 +1,23 @@
+<div class="rooms" *ngIf="!(roomDataService.isLoading$ | async)">
+  <div class="rooms-container">
+  <ng-container *ngIf="roomDataService.roomList$ | async; let rooms">
+    <ng-container *ngIf="rooms.length; else dataEmpty">
+      <ng-container *ngFor="let room of rooms; trackBy: identify; index as i; ">
+        <div class="room-data-container" [ngClass] = "{selected: (roomDataService.selectedRoom$ |async)?.roomId === room.roomId}" (click)="roomSelected(room.roomId)">
+          {{room.roomName}}
+        </div>
+      </ng-container>
+    </ng-container>
+      <ng-template #dataEmpty>
+        <div class="data-empty">
+          There are no rooms
+        </div>
+      </ng-template>
+    </ng-container>
+ </div>
+</div>
+<ng-container *ngIf="roomDataService.isLoading$ | async">
+  <div class="data-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>

@@ -1,0 +1,18 @@
+.question-wrapper {
+  display: flex;
+  align-items: center;
+
+  .question-icon {
+    margin: 0 10px 0 0;
+    height: 25px;
+    width: 25px
+  }
+}
+
+.ok-button {
+  color: white;
+  background-color: #435d67;
+  margin: 0;
+  border-radius: 25px;
+}
+

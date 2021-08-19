@@ -1,0 +1,7 @@
+<div class="chat-view-container">
+  <div class="chat-messages-container">
+    <div class="chat-title">Chat Room{{': ' + ((roomDataService.selectedRoom$ | async)?.roomName || '')}}</div>
+    <messages-container></messages-container>
+    <typing-container></typing-container>
+  </div>
+</div>

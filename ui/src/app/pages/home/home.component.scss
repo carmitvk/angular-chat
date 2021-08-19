@@ -1,0 +1,18 @@
+.chat-app-container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  chat-app-header{
+    height: 65px;
+    width: 100%;
+  }
+
+  .content{
+    flex: 1 1 auto;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+}

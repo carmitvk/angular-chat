@@ -1,0 +1,12 @@
+<div class="chat-app-container">
+  <!-- header -->
+  <chat-app-header (fullScreenMode)="changeFullScreenMode($event)"></chat-app-header>
+
+  <!-- content -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- footer -->
+  <chat-app-footer></chat-app-footer>
+
+</div>

@@ -1,0 +1,32 @@
+.rooms {
+  padding: 20px 10px 15px 10px;
+  height: 100%;
+  background-color: rgb(187, 192, 197);
+  width: 30vw;
+
+  .rooms-container {
+    border: 1.5px solid black;
+    border-radius: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 25px;
+
+    .room-data-container {
+      margin: 5px 10px;
+      border: 1px solid whitesmoke;
+      border-radius: 10px;
+      height: 100%;
+      padding: 5px;
+
+    }
+    .selected{
+      background-color: lightsteelblue;
+    }
+      
+    .room-data-container:hover{
+      background-color: lightsteelblue;
+
+    }
+  }
+}

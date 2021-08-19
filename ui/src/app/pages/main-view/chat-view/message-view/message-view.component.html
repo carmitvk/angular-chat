@@ -1,0 +1,18 @@
+<!-- [ngClass]="{reverse: (conversationDataService.selectedConversationContainer$ | async)?.fromUser?.id !== data.fromUser.id}" -->
+<div class="message-view" 
+  >
+  <div class="message-header">
+    <label class="user-name">{{data.fromUser.userName}}</label>
+  </div>
+  <div class="message-content">
+    <label class="message">{{data.text}}</label>
+    <label class="date">{{data.receivedTimestamp | date: 'H:mm:ss'}}</label>
+  </div>
+
+  <!-- <ng-template #missing>
+    <div class="message-loading" *ngIf="chatMessagesDataService.isLoading$ | async">
+      <mat-spinner [diameter]="35" strokeWidth="2">
+      </mat-spinner>
+    </div>
+  </ng-template> -->
+</div>

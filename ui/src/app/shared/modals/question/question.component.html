@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <div class="question-wrapper">
+    <img src="./../../../../assets/images/question.png" alt="Question" class="question-icon">
+    <div>{{data.message}}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close class="ok-button" (click)="yesClicked()" >Yes</button>
+  <button mat-button mat-dialog-close>No</button>
+</mat-dialog-actions>

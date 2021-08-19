@@ -1,0 +1,114 @@
+.login-page {
+  // background: url("/../assets/images/home-page2.png") 0 0 no-repeat;
+  // background-color: greenyellow;
+  background-size: cover;
+  background-position: center;
+
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  align-items: center;
+  display: flex;
+
+  .image-container {
+    background: no-repeat center/80% url("/../assets/images/business_deal.svg");
+    background-size: cover;
+    background-position: center;
+
+    // display: flex;
+    width: 50vw;
+    height: 80vh;
+  }
+
+  .auth-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #56516f;
+    margin: 0 5% 0 10%;
+    padding-top: 10%;
+    height: 100%;
+
+    .login {
+      border: 1px solid #f8f2f2;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+      width: 300px;
+      position: relative;
+
+      .input-class {
+        width: 240px;
+      }
+
+      .form-containers {
+        > p {
+          margin: 0;
+        }
+
+        .mat-form-field {
+          width: 100%;
+        }
+      }
+      .line {
+        align-items: center;
+        border-bottom: 2px solid #dadde1;
+        display: flex;
+        margin: 30px 16px;
+        text-align: center;
+        width: 100%;
+      }
+      .data-loading {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+    }
+
+    .title {
+      font-size: 34px;
+      font-weight: bold;
+      padding-bottom: 40px;
+    }
+
+    .login-button {
+      color: white;
+      background-color: #8587b9;
+      margin: 5px 0 0 0;
+      border-radius: 25px;
+      width: 100%;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      &:hover {
+        background-color: #8d85b3;
+      }
+    }
+
+    .signin-button {
+      color: white;
+      background-color: #c2beff;
+      margin: 0;
+      border-radius: 25px;
+      width: 70%;
+
+      &:hover {
+        background-color: #8d85b3;
+      }
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+    }
+  }
+}
