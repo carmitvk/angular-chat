@@ -1,14 +1,9 @@
 import { User } from "./user-info.model";
 
-export interface ChatMessage extends ChatMessageToCreate{
+export interface ChatMessage{
   chatMessageId: string;
-  receivedTimestamp: string;
-}
-
-export interface ChatMessageToCreate{
-  fromUser: User;
-  toUsers: Array<User>;
+  fromUser?: User;
+  createdAt: number;
   text: string;
   roomId: string;
 }
-

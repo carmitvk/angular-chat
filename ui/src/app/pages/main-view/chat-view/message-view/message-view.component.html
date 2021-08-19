@@ -1,12 +1,12 @@
-<!-- [ngClass]="{reverse: (conversationDataService.selectedConversationContainer$ | async)?.fromUser?.id !== data.fromUser.id}" -->
 <div class="message-view" 
+  [ngClass]="{reverse: (userDataService.user$ | async)?.id !== data.fromUser?.id}"
   >
   <div class="message-header">
-    <label class="user-name">{{data.fromUser.userName}}</label>
+    <label class="user-name">{{data?.fromUser?.nickName}}</label>
   </div>
   <div class="message-content">
     <label class="message">{{data.text}}</label>
-    <label class="date">{{data.receivedTimestamp | date: 'H:mm:ss'}}</label>
+    <label class="date">{{data.createdAt | date: 'H:mm:ss'}}</label>
   </div>
 
   <!-- <ng-template #missing>

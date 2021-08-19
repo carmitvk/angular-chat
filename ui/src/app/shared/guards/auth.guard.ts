@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.userDataService.user$
       .pipe(
-        map((user: User | null) => !!user),
+        map((user: User | undefined) => !!user),
         tap((value: boolean) => {
           if (!value) {
             this.router.navigate(['auth']);

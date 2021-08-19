@@ -10,5 +10,29 @@
     "password": "$2b$10$L2Xb.gXsqQSPQqrolM.C4u15EsQf3JndZ9P0kxH.PU7RlrtdthTe6",
     "nickName": "dan",
     "id": "1629296786918"
+  },
+  {
+    "userName": "user11@gmail.com",
+    "password": "$2b$10$nLqkH44RxSr6AfZakaNsbefJi1Fz6oE8bk/fHe10cUSGRFcTczwjy",
+    "nickName": "Dani",
+    "id": "1629356133143"
+  },
+  {
+    "userName": "user1@gmail.com1",
+    "password": "$2b$10$W8WYNW2d4gN0y1tsD1/.Cekf83POtz5sMhcrGy454RqWfNDJvT1Ca",
+    "nickName": "shpipo",
+    "id": "1629400804417"
+  },
+  {
+    "userName": "user2@gmail.com",
+    "password": "$2b$10$QvjjZcVMmOBeOaSP3ulb0OzsSADYBrEImsuXGOXPpjmdS2S0pUbHa",
+    "nickName": "user2",
+    "id": "1629401079178"
+  },
+  {
+    "userName": "user4@gmail.com",
+    "password": "$2b$10$vrdYF6UyGJMtBAREYdpHqOGm.fgjcGTiniLz83dXxvMqn2l9BY/0G",
+    "nickName": "user3",
+    "id": "1629401421339"
   }
 ]

@@ -18,7 +18,6 @@ async function addChatMessage(req, res) {
     try {
         const creatorId = req.session.user?.id;
         var chatMessage = req.body;
-        chatMessage.receivedTimestamp = Date.now().toString();
         chatMessage.chatMessageId = chatMessage.chatMessageId ? chatMessage.chatMessageId : Date.now().toString();
         chatMessage.creatorId = req.session.user?.id;
         chatMessage = chatMessageService.add(chatMessage, creatorId);

@@ -44,7 +44,7 @@ export class AuthComponent  implements OnInit {
 
   public initialize() : void {
     //check if exist in the localStorage
-    let user: User | null = this.authService.getUserFromLocalStorage();
+    let user: User | undefined;// = this.authService.getUserFromLocalStorage();
     if(user){
       this.authService.login(user).subscribe();
     }

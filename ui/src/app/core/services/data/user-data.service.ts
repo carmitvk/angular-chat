@@ -6,16 +6,16 @@ import { User } from '../models/user-info.model';
   providedIn: 'root',
 })
 export class UserDataService {
-  public user$: Observable<User|null>;
+  public user$: Observable<User|undefined>;
 
-  private user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(null);
+  private _user: BehaviorSubject<User|undefined> = new BehaviorSubject<User|undefined>(undefined);
 
   constructor() {
-    this.user$ = this.user.asObservable();
+    this.user$ = this._user.asObservable();
   }
 
-  public setUserData(value: User | null): void {
-    this.user.next(value);
+  public setUserData(value: User | undefined): void {
+    this._user.next(value);
   }
   
 }

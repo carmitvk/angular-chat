@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
               public authService: AuthService) {
     this.userDataService.user$.pipe(
       take(1),
-      tap((user: User | null) => this.userId = user?.id),
+      tap((user: User | undefined) => this.userId = user?.id),
     ).subscribe();
   }
 

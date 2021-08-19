@@ -25,7 +25,7 @@ export class AuthService implements OnDestroy {
     this.isLoading$ = this._isLoading.asObservable();
   }
 
-  public getUserFromLocalStorage() : User | null{
+  public getUserFromLocalStorage() : User | undefined{
     //check if exist in the localStorage
     let user: string | null= localStorage.getItem(LOCAL_STORAGE_USER_KEY);
     return user? JSON.parse(user) : null;
@@ -67,7 +67,7 @@ export class AuthService implements OnDestroy {
     return this.http.post<User>(`auth/logout`, {userId}).pipe(
       take(1),
       tap(() => localStorage.removeItem(LOCAL_STORAGE_USER_KEY)),
-      tap(() => this.userDataService.setUserData(null)),
+      tap(() => this.userDataService.setUserData(undefined)),
       tap(() => this.router.navigate(['auth'])),
       finalize(() => this._isLoading.next(false))
     );

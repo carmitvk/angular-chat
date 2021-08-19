@@ -1,5 +1,5 @@
 
-//npm i socket.io@2.2.0
+//npm i socket.io@4.1.3
 
 const asyncLocalStorage = require('./als.service');
 const logger = require('./logger.service');
@@ -7,17 +7,22 @@ const logger = require('./logger.service');
 
 var gIo = null;
 var gSocketBySessionIdMap = {};
+var usersPerRoomMap = {};
 
 function connectSockets(http, session) {
-    gIo = require('socket.io')(http);
+    gIo = require('socket.io')(http, {
+        cors: {
+            origins: ['http://localhost:4200']
+        }
+    });
 
     const sharedSession = require('express-socket.io-session');
 
     gIo.use(sharedSession(session, {
         autoSave: true
     }));
-    gIo.on('connection', socket => {
-        // console.log('socket.handshake', socket.handshake)
+    gIo.on('connection', (socket) => {
+        //console.log('socket.handshake', socket.handshake)
         gSocketBySessionIdMap[socket.handshake.sessionID] = socket;
         // TODO: emitToUser feature - need to tested 
         // if (socket.handshake?.session?.user) socket.join(socket.handshake.session.user.id)
@@ -26,35 +31,50 @@ function connectSockets(http, session) {
             if (socket.handshake) {
                 gSocketBySessionIdMap[socket.handshake.sessionID] = null;
             }
+            if (socket.roomId) {
+                socket.leave(socket.roomId);
+                removeUserFromRoomMap(socket.user, socket.roomId);
+                gIo.to(socket.roomId).emit('users-in-room', usersPerRoomMap[socket.roomId]);
+            }
         })
 
-        socket.on('userId', data => {
-            console.log('on to userId',data.userId);
-            if (socket.userId === data.userId){
+        socket.on('join-to-room', data => {
+            console.log('join-to-room', data);
+            if (socket.roomId === data.roomId) {
                 return;
             }
-            if (socket.userId) {
-                socket.leave(socket.userId);
+            if (socket.roomId) {
+                socket.leave(socket.roomId);
+                removeUserFromRoomMap(data.user, socket.roomId);
+                gIo.to(socket.roomId).emit('users-in-room', usersPerRoomMap[socket.roomId]);
             }
-            socket.join(data.userId);
-            socket.userId = data.userId;
-            socket.nickName = data.nickName;
+            socket.join(data.roomId);
+            socket.roomId = data.roomId;
+            socket.user = data.user;
+            addUserToRoomMap(data.user, socket.roomId);
+            gIo.to(socket.roomId).emit('users-in-room', usersPerRoomMap[socket.roomId]);
         })
 
-
-        socket.on('msg-data', msg => {
-            msg.from = socket.nickName;
-            msg.fromId = socket.userId;
-            msg.createdAt = Date.now();
-            gIo.to(socket.userId).emit('msg-data', msg);
-            gIo.to(msg.toId).emit('msg-data', msg);
+        socket.on('user-typing', user => {
+            gIo.to(socket.roomId).emit('user-typing', user);
         })
 
-        socket.on('user-typing', data => {
-            gIo.to(data.toId).emit('user-typing', data);
+        socket.on('message', msg => {
+            console.log('got message', msg);
+            gIo.to(msg.roomId).emit('new-message', msg);
         })
 
     })
+}
+
+function addUserToRoomMap(user, roomId) {
+    usersPerRoomMap[roomId] = [...(usersPerRoomMap[roomId] || []), user]
+}
+
+function removeUserFromRoomMap(user, roomId) {
+    if (usersPerRoomMap[roomId]) {
+        usersPerRoomMap[roomId] = usersPerRoomMap[roomId].filter(userInRoom => userInRoom.id !== user.id)
+    }
 }
 
 function emit({ type, data }) {
@@ -71,11 +91,11 @@ function emitToUser({ type, data, userId }) {
 function broadcast({ type, data }) {
     const store = asyncLocalStorage.getStore();
     const { sessionId } = store;
-    if (!sessionId){
+    if (!sessionId) {
         return logger.debug('no sessionId in asyncLocalStorage store');
     }
     const excludedSocket = gSocketBySessionIdMap[sessionId];
-    if (!excludedSocket){
+    if (!excludedSocket) {
         return logger.debug('Shouldnt happen, No socket in map', gSocketBySessionIdMap);
     }
     excludedSocket.broadcast.emit(type, data);

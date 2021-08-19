@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChatMessagesDataService } from 'src/app/core/services/data/chat-messages-data.service';
+import { UserDataService } from 'src/app/core/services/data/user-data.service';
 import { ChatMessage } from 'src/app/core/services/models/chat-message.model';
 
 @Component({
@@ -10,7 +11,7 @@ import { ChatMessage } from 'src/app/core/services/models/chat-message.model';
 export class MessageViewComponent implements OnInit {
   @Input() data: ChatMessage;
 
-  constructor() { }
+  constructor(public userDataService:UserDataService) { }
 
   ngOnInit(): void {
   }

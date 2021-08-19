@@ -9,7 +9,7 @@ const app = express();
 const http = require('http').createServer(app);
 
 const session = expressSession({
-    secret: 'Reuters1',
+    secret: 'ChatApp',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
@@ -31,7 +31,6 @@ if (process.env.NODE_ENV === 'production') {
 const fs = require('fs');
 const authRoutes = require('./api/auth/auth.routes');
 const userRoutes = require('./api/user/user.routes');
-const generalRoutes = require('./api/general/general.routs');
 const roomRoutes = require('./api/room/room.routes');
 const chatMessageRoutes = require('./api/chat-message/chat-message.routes');
 const {connectSockets} = require('./services/socket.service');
@@ -42,7 +41,6 @@ app.all('*', setupAsyncLocalStorage);
 
 app.use('/auth', authRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api', generalRoutes);
 app.use('/api/room', roomRoutes);
 app.use('/health/is-alive', (req, res) => res.send('OK'));
 
@@ -56,19 +54,11 @@ app.get('/**', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-const  buildInfoPath = path.resolve(__dirname, './build-info.json');
-fs.readFile(buildInfoPath, 'utf8', function(err, data) {
-  if (err) {
-    logger.error("Failed to load 'build-info.json' file content");
-  } else {
-    logger.info(data);
-
-    const port = config.PORT;
-    http.listen(port, () => {
-      logger.info(`Server is Up on port ${config.PORT}, NLP_WRAPPER_URL= ${config.NLP_WRAPPER_URL}`);
-    });
-  }
+const port = config.PORT;
+http.listen(port, () => {
+  logger.info(`Server is Up on port ${config.PORT}`);
 });
+
 
 
 

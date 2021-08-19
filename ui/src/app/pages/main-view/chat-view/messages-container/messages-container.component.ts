@@ -24,7 +24,7 @@ export class MessagesContainerComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngAfterViewInit() {
-    this.chatMessagesDataService.data$.pipe(
+    this.chatMessagesDataService.messages$.pipe(
       filter((messages: Array<ChatMessage>) => messages.length > 1),
       tap((messages: Array<ChatMessage>) => {
         const element: ElementRef = this.messages.toArray()[messages.length];
