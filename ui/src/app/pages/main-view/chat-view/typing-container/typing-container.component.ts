@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { filter, map, switchMap, take, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime, filter, map, skip, switchMap, take, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { ChatMessagesDataService } from 'src/app/core/services/data/chat-messages-data.service';
 import { RoomDataService } from 'src/app/core/services/data/room-data.service';
 import { UserDataService } from 'src/app/core/services/data/user-data.service';
 import { ChatMessage } from 'src/app/core/services/models/chat-message.model';
 import { Room } from 'src/app/core/services/models/room.model';
 import { User } from 'src/app/core/services/models/user-info.model';
+import { SocketService } from 'src/app/core/services/socket/socket.service';
 
 @Component({
   selector: 'typing-container',
@@ -18,12 +19,21 @@ export class TypingContainerComponent implements OnDestroy {
   public messageText: string = '';
   private user: User | undefined;
 
+  private _typingActive: BehaviorSubject<any> = new BehaviorSubject<any>(false);  
+
   constructor(public chatMessageDataService: ChatMessagesDataService, 
               public roomDataService: RoomDataService,
-              public userDataService: UserDataService) {
+              public userDataService: UserDataService,
+              public socketService: SocketService) {
     this.userDataService.user$.pipe(
       tap((user: User | undefined) => this.user = user)
-    ).subscribe()
+    ).subscribe();
+
+    this._typingActive.pipe(
+      skip(1), //ignore first time of BehaviorSubject default value
+      debounceTime(300),
+      tap(()=>this.socketService.sendTyping(this.user)),
+    ).subscribe();
   }
 
   public sendChatMessage(): void {
@@ -42,6 +52,10 @@ export class TypingContainerComponent implements OnDestroy {
       tap(() => this.messageText = ''),
       takeUntil(this.subscription),
     ).subscribe();
+  }
+
+  public sendTypingActive(){
+    this._typingActive.next(true);
   }
 
   ngOnDestroy(): void {

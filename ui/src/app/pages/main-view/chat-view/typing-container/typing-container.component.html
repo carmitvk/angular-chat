@@ -1,6 +1,6 @@
 <div class="typing-container" cdkTrapFocus >
   <mat-form-field appearance="outline">
-    <input matInput type="text" autocomplete="off" [(ngModel)]="messageText" 
+    <input matInput type="text" autocomplete="off" (keyup)="sendTypingActive()" [(ngModel)]="messageText" 
           (keyup.enter)="!!messageText ? sendChatMessage() : null">
     <button [disabled]="!messageText" matSuffix mat-icon-button aria-label="Clear" 
         (click)="sendChatMessage()">

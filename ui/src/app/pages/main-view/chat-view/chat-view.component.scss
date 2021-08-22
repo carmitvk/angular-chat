@@ -12,6 +12,9 @@
     position: absolute;
     top: -14px;
     background-color: lightsteelblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .chat-messages-container {

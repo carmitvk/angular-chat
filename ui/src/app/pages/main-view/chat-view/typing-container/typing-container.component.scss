@@ -15,6 +15,10 @@
     padding: 0.4em 0px !important;
   }
 
+  ::ng-deep .mat-form-field {
+    width: 80%;
+  }
+
   ::ng-deep .mat-form-field-label-wrapper {
     top: -1.5em;
   }

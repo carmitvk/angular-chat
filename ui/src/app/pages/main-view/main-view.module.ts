@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ChatManagerComponent } from './chat-manager/chat-manager.component';
 import { HistoryComponent } from './chat-manager/history/history.component';
 import { RoomsComponent } from './chat-manager/rooms/rooms.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { RoomsComponent } from './chat-manager/rooms/rooms.component';
     MessageViewComponent,
     ChatManagerComponent,
     HistoryComponent,
-    RoomsComponent
+    RoomsComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,

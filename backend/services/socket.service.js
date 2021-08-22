@@ -56,7 +56,7 @@ function connectSockets(http, session) {
         })
 
         socket.on('user-typing', user => {
-            gIo.to(socket.roomId).emit('user-typing', user);
+            gIo.to(socket.roomId).emit('typer', user);
         })
 
         socket.on('message', msg => {
@@ -68,7 +68,9 @@ function connectSockets(http, session) {
 }
 
 function addUserToRoomMap(user, roomId) {
-    usersPerRoomMap[roomId] = [...(usersPerRoomMap[roomId] || []), user]
+    let usersInRoom = usersPerRoomMap[roomId] || [];
+    usersInRoom = usersInRoom.filter(userInRoom => userInRoom.id !== user.id);
+    usersPerRoomMap[roomId] = [...usersInRoom, user];
 }
 
 function removeUserFromRoomMap(user, roomId) {

@@ -1,0 +1,39 @@
+<div class="user-list">
+  <div class="typers" *ngIf="this.roomDataService.typersInRoom$|async">
+
+  </div>
+  <ng-container *ngIf="this.roomDataService.typersInRoom$ | async; let typers">
+    <ng-container *ngIf="typers.length; else noTypers">
+      <ng-container *ngFor="let typer of typers; trackBy: identify; index as i;let last = last ">
+        <span class="typers">
+          {{typer.nickName}}
+        </span>
+        <span *ngIf="!last">
+          {{', '}}
+        </span>
+        <span>typing...</span>
+      </ng-container>
+    </ng-container>
+    <ng-template #noTypers>
+      <div class="users-in-room-container">
+        <ng-container *ngIf="this.roomDataService.usersInRoom$ | async; let users">
+          <ng-container *ngIf="users.length">
+            <ng-container class="users-in-room" *ngFor="let user of users ; trackBy: identify; index as i; let last = last">
+              <span class="users">
+                {{user.nickName}}
+              </span>
+              <span *ngIf="!last">
+                {{', '}}
+              </span>
+            </ng-container>
+            <!-- <span>in the room</span> -->
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-template>
+  </ng-container>
+
+
+
+
+</div>

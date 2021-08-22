@@ -1,6 +1,6 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { ChatMessage } from '../models/chat-message.model';
 import { User } from '../models/user-info.model';
@@ -31,7 +31,7 @@ export class SocketService {
     this.socket.emit('message', chatMsg);
   }
 
-  sendTyping(user: User): void { //TODO call to this method
+  sendTyping(user: User | undefined): void { 
     this.socket.emit('user-typing', user);
   }
 
@@ -64,6 +64,7 @@ export class SocketService {
   getTypingUser(): Observable<User> {
     return new Observable<User>(userObserver => {
       this.socket.on('typer', (data) => {
+      // this.socket.on('typer', (data) => {
         userObserver.next(data);
       });
 
