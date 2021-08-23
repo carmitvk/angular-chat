@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { map, filter, tap, takeUntil } from 'rxjs/operators';
-import { ChatMessagesDataService } from 'src/app/core/services/data/chat-messages-data.service';
+import { HistoryDataService } from 'src/app/core/services/data/history-data.service';
 import { RoomDataService } from 'src/app/core/services/data/room-data.service';
 
 @Component({
@@ -15,9 +12,7 @@ export class MainViewComponent implements OnInit, OnDestroy{
   private subscription: Subject<void> = new Subject<void>();
 
   constructor(public roomDataService: RoomDataService,
-    private activatedRoute: ActivatedRoute,
-    private chatMessagesDataService: ChatMessagesDataService,
-    private dialog: MatDialog) { }
+              public historyDataService: HistoryDataService) { }
 
   ngOnInit(): void {
     this.loadData('');
@@ -33,10 +28,7 @@ export class MainViewComponent implements OnInit, OnDestroy{
 
   private loadData(containerId: string): void {
     this.roomDataService.updateData(); //loadRooms
-    // const conversation = this.conversationDataService.selectConversation(containerId);
-    // if(conversation && conversation.conversationsIds.length > 0){
-    //   this.chatMessagesDataService.updateData(conversation.conversationsIds[conversation.conversationsIds.length - 1]);
-    // }
+    this.historyDataService.loadHistory(); 
   }
 
   ngOnDestroy(): void {

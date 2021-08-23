@@ -15,6 +15,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .save-history{
+      // height: 30px;
+      // width: 30px;
+    }
   }
 
   .chat-messages-container {

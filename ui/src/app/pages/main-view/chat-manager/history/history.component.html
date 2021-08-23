@@ -1,1 +1,24 @@
-<p>history works!</p>
+<div class="historyAll" *ngIf="!(historyDataService.isLoading$ | async)">
+  <div class="historyAll-container">
+  <ng-container *ngIf="historyDataService.historyList$ | async; let historyDataAll">
+    <ng-container *ngIf="historyDataAll.length; else dataEmpty">
+      <ng-container *ngFor="let history of historyDataAll; trackBy: identify; index as i; ">
+        <div class="history-container" [ngClass] = "{selected: (historyDataService.selectedHistory$ |async)?.historyId === history.historyId}" 
+              (click)="historyDataService.setSelectedHistory(history.historyId)">
+          {{history.savedAt}} : {{history.roomId}}
+        </div>
+      </ng-container>
+    </ng-container>
+      <ng-template #dataEmpty>
+        <div class="data-empty">
+          There is no history Data
+        </div>
+      </ng-template>
+    </ng-container>
+ </div>
+</div>
+<ng-container *ngIf="historyDataService.isLoading$ | async">
+  <div class="data-loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>

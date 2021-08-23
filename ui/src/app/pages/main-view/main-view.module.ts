@@ -14,7 +14,7 @@ import { HistoryComponent } from './chat-manager/history/history.component';
 import { RoomsComponent } from './chat-manager/rooms/rooms.component';
 import { UserListComponent } from './user-list/user-list.component';
 
-
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
   declarations: [
     MainViewComponent,
@@ -33,6 +33,7 @@ import { UserListComponent } from './user-list/user-list.component';
     AngularSplitModule,
     SharedModule,
     NgbModule,
+    MatTabsModule,
   ],
 })
 export class MainViewModule { }

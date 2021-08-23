@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryDataService } from 'src/app/core/services/data/history-data.service';
+import { History } from 'src/app/core/services/models/history.model';
 
 @Component({
-  selector: 'app-history',
+  selector: 'history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
 
-  constructor() { }
+  constructor(public historyDataService: HistoryDataService) { }
 
-  ngOnInit(): void {
+
+  public identify(index: number, historyData: History): string{
+    return historyData.historyId; 
   }
 
 }

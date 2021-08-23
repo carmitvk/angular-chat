@@ -1,7 +1,11 @@
 <div class="chat-view-container">
   <div class="chat-messages-container">
     <div class="chat-title">
-      <div>Chat Room{{': ' + ((roomDataService.selectedRoom$ | async)?.roomName || '')}}</div>
+      <div>Chat Room{{': ' + ((roomDataService.selectedRoom$ | async)?.roomName || '')}}
+        <button class="save-history" mat-fab color="accent" (click)="saveChatToHistory()" aria-label="Example icon button with a bookmark icon">
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
       <user-list></user-list>
     </div>
     <messages-container></messages-container>
