@@ -15,7 +15,8 @@ import { User } from '../models/user-info.model';
 export class SocketService {
 
   private socket: Socket;
-  private url = 'http://localhost:3030';
+  // private url = 'http://localhost:3030';
+  private url = '/';
 
   constructor() {
     this.socket = io(this.url);
