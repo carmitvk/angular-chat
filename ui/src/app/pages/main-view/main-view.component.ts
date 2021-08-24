@@ -28,7 +28,7 @@ export class MainViewComponent implements OnInit, OnDestroy{
 
   private loadData(containerId: string): void {
     this.roomDataService.updateData(); //loadRooms
-    this.historyDataService.loadHistory(); 
+    //this.historyDataService.loadHistory(); 
   }
 
   ngOnDestroy(): void {
