@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { ChatMessage } from '../models/chat-message.model';
 import { User } from '../models/user-info.model';
+import { environment } from '../../../../environments/environment';
 
 // npm i socket.io-client
 // npm i @types/socket.io-client
@@ -16,10 +17,14 @@ export class SocketService {
 
   private socket: Socket;
   // private url = 'http://localhost:3030';
-  private url = '/';
+  // private url = '/';
 
   constructor() {
-    this.socket = io(this.url);
+    if(!!environment.SOCKET_ENDPOINT) {
+      this.socket = io(environment.SOCKET_ENDPOINT);
+    } else { //in production
+      this.socket = io();
+    }
   }
 
   joinRoom(data:{roomId: string, user: User | undefined}): void { 
