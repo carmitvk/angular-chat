@@ -34,6 +34,7 @@ export class HistoryDataService {
     this.historyList$ = this._historyList.asObservable();
     this.isLoading$ = this._isLoading.asObservable();
     this.selectedHistory$ = this._selectedHistory.asObservable();
+    // this.loadHistory();
   }
 
   loadHistory() {
